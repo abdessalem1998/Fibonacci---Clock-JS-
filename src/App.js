@@ -4,7 +4,7 @@ import TableLayout from "./component/display"
 import { findCombinations, findDisplay } from "./utils/findDisplay";
 
 function App() {
-  const [hour, setHour] = useState(1);
+  const [hour, setHour] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [display, setDisplay] = useState(["white", "white", "white", "white", "white"])
   useEffect(() => {
@@ -29,7 +29,7 @@ function App() {
         <h1 style={{ textAlign: "center" }}>Fibonacci - Clock:</h1>
         <div>
           <TableLayout display={display[0]} />
-          <div style={{ fontSize: "30px",textAlign:"center" }}>
+          <div style={{ fontSize: "30px", textAlign: "center" }}>
             {hour}:{minutes}
           </div>
           <div
@@ -39,10 +39,10 @@ function App() {
               fontSize: "30px",
               justifyContent: "space-between"
             }}>
-            <button onClick={() => setMinutes(prevValue => prevValue - 5)}>
+            <button disabled={minutes === 0 && hour === 0} onClick={() => setMinutes(prevValue => prevValue - 5)}>
               back
             </button>
-            <button onClick={() => setMinutes(prevValue => prevValue + 5)}>
+            <button disabled={minutes === 0 && hour === 12} onClick={() => setMinutes(prevValue => prevValue + 5)}>
               next
             </button>
           </div>
@@ -52,12 +52,12 @@ function App() {
       <div style={{ width: "40%", display: "flex", flexDirection: "column", alignItems: "center" }}>
         <h1>other displas</h1>
         <div style={{ height: "90vh", overflow: 'auto', }}>
-          {
+          {display.slice(1).length > 0 ?
             display.slice(1).map((singleDisplay, index) =>
               <div key={index} style={{ marginBottom: "20px" }}>
                 <TableLayout display={singleDisplay} />
               </div>
-            )
+            ) : "no other display"
           }
         </div>
 
